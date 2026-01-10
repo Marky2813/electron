@@ -1,7 +1,8 @@
 {
   "appId": "com.sarthak-narula.invisible", 
   "files": ["dist-electron", "dist-react"],
-  "icon": "./desktopIcon.png",  
+  "icon": "./desktopIcon.png",
+   "extraResources": ["dist-electron/preload.cjs"], 
   "mac": {
     "target": "dmg"
   }, 

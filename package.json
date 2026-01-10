@@ -1,6 +1,7 @@
 {
   "name": "learn_electron",
   "private": true,
+  "author": "Sarthak",
   "version": "0.0.0",
   "type": "module",
   "main": "dist-electron/main.js",
