@@ -3,7 +3,7 @@ import path from 'path';
 import { isDev } from './util.js';
 import { getPreloadPath } from './pathResolver.js';
 import { ipcMain, powerMonitor } from 'electron';
-import { dialog } from 'electron'; 
+// import { dialog } from 'electron'; 
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
