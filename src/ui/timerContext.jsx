@@ -8,6 +8,7 @@ export function TimerProvider({ children }) {
      const [duration, setDuration] = useState(15);
      const[remainingTime, setRemainingTime] = useState(0);
      const [durationMs, setDurationMs] = useState(15);
+     const [progressPercentage, setProgressPercentage] = useState(0);
      
      useEffect(() => {
       setDurationMs(duration*60_000);
@@ -43,6 +44,7 @@ export function TimerProvider({ children }) {
           if(Math.floor(time/60_000) < 0) 
           {
             setTimerState("Completed")
+            setProgressPercentage(0);
             clearInterval(Intervalid);
             return;
           }
@@ -64,7 +66,9 @@ export function TimerProvider({ children }) {
       duration, 
       setDuration, 
       remainingTime, 
-      setRemainingTime
+      setRemainingTime, 
+      progressPercentage, 
+      setProgressPercentage
      }; 
 
      return (
