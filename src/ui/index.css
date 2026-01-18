@@ -29,7 +29,7 @@
 
 [role = "progressbar"] {
 
-  --size: 200px; 
+  --size: 190px; 
   --bar-width: 20px;
 
 
@@ -37,7 +37,7 @@
   aspect-ratio: 1 / 1;
 
   background:conic-gradient(#000 var(--progress, 0), #C7C7C7 0%);
-  border-radius: 100px;
+  border-radius: 95px;
 
   display: flex;
   justify-content: center;
@@ -51,7 +51,7 @@
   box-sizing: border-box;
   content: attr(aria-valuetext) ; 
   background: #F6D868; 
-  border-radius: 100px;
+  border-radius: 95px;
   width: calc(100% - var(--bar-width)); 
   aspect-ratio: 1 / 1; 
 

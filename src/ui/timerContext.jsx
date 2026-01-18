@@ -7,12 +7,13 @@ export function TimerProvider({ children }) {
      const [timerState, setTimerState] = useState("Intialized");
      const [duration, setDuration] = useState(15);
      const[remainingTime, setRemainingTime] = useState(0);
-     const [durationMs, setDurationMs] = useState(15);
+     const [durationMs, setDurationMs] = useState(15 * 60000);
      const [progressPercentage, setProgressPercentage] = useState(0);
      
      useEffect(() => {
       setDurationMs(duration*60_000);
      }, [duration])
+
      useEffect(() => {
       let Intervalid;
       if(timerState === "Running") {
@@ -52,6 +53,9 @@ export function TimerProvider({ children }) {
         return () => {
           clearInterval(Intervalid)
         }
+      }
+      if(timerState === "Completed") {
+        setDurationMs(duration * 60_000)
       }
       return () => {
           clearInterval(Intervalid)

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTimer } from '../timerContext';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-react';
 import Progress from './Progress';
 
 
@@ -44,12 +44,17 @@ function FocusTimer() {
             <div className='justify-items-center items:center pt-4 pb-2'>
               <Progress time={time} progressPercentage={progressPercentage} setProgressPercentage={setProgressPercentage}/>
             </div>
-            {timerState === "Paused" && <button onClick={() => {
+            {timerState === "Paused" && <button 
+            className='mr-3 p-1
+            hover:bg-gray-100 rounded-full transition-colors'
+            onClick={() => {
               setTimerState("Completed")
               setStateButton("Pause")
               setProgressPercentage(0)
-            }}>End Session</button>}
-            <button onClick={() => {
+            }}><RotateCcw /></button>}
+            <button 
+            className='hover:bg-gray-100 rounded-full transition-colors p-1'
+            onClick={() => {
               if (timerState === "Running" || timerState === "Resumed") {
                 setStateButton("Resume");
                 setTimerState("Paused")
@@ -78,7 +83,9 @@ function FocusTimer() {
                 mt-4 
                 w-30 
                 self-center
-                font-semibold'
+                font-semibold
+                hover:bg-[#F6D365]
+                hover:shadow-sm'
                 onClick={() => {
                   if (showSeconds === "Hide Seconds") {
                     setShowSeconds("Show Seconds");
@@ -91,7 +98,9 @@ function FocusTimer() {
                 <div>
                   <div className='flex justify-center items-center gap-5'>
                     <button
-                      className='pt-3'
+                      className='
+                      pt-3
+                      transition-transform hover:-translate-x-0.5'
                       onClick={() => {
                         if (duration > 15 && duration <= 30) {
                           setDuration((prev: any) => prev - 5);
@@ -119,7 +128,8 @@ function FocusTimer() {
                     font-bold '>:00</span>
                     </div>
                     <button
-                      className='pt-3'
+                      className='pt-3
+                      transition-transform hover:translate-x-0.5'
                       onClick={() => {
                         if (duration < 30) {
                           setDuration((prev: any) => prev + 5);
@@ -137,7 +147,8 @@ function FocusTimer() {
                 <div>
                   <div className='flex justify-center items-center gap-5'>
                     <button
-                      className='pt-3' onClick={() => {
+                      className='pt-3
+                      transition-transform hover:-translate-x-0.5' onClick={() => {
                         if (duration > 15 && duration <= 30) {
                           setDuration((prev: any) => prev - 5);
                         } else if (duration > 30) {
@@ -163,7 +174,8 @@ function FocusTimer() {
                         }}></input>
                     </div>
                     <button
-                      className='pt-3'
+                      className='pt-3
+                      transition-transform hover:translate-x-0.5'
                       onClick={() => {
                         if (duration < 30) {
                           setDuration((prev: any) => prev + 5);
@@ -188,7 +200,9 @@ function FocusTimer() {
                 text-2xl 
                 text-white 
                 bg-black 
-                font-medium'
+                font-medium
+                hover:bg-[#262626]
+                hover:shadow-sm'
                 onClick={() => {
                   setTimerState("Running")
                   setStartTime(Date.now())
