@@ -51,7 +51,7 @@ function FocusTimer() {
               setTimerState("Completed")
               setStateButton("Pause")
               setProgressPercentage(0)
-            }}><RotateCcw /></button>}
+            }}><RotateCcw color='#000'/></button>}
             <button 
             className='hover:bg-gray-100 rounded-full transition-colors p-1'
             onClick={() => {
@@ -64,7 +64,7 @@ function FocusTimer() {
                 setStartTime(Date.now())
                 setTimerState("Resumed")
               }
-            }}>{stateButton === "Pause" ? <Pause fill='#000' strokeWidth={1} size={26}/> : <Play fill='#000' strokeWidth={1}/ >}</button>
+            }}>{stateButton === "Pause" ? <Pause fill='#000'color='#000' strokeWidth={1} size={26}/> : <Play fill='#000' color='#000' strokeWidth={1}/ >}</button>
           </section>
           :
           <section className='h-full'>
@@ -72,20 +72,25 @@ function FocusTimer() {
               {/* height full tells the div to take the entire height of it's parent element. while the height auto will start from zero filling only the height required to fit all the element.s*/}
               <button
                 id="seconds-btn"
-                className='border-2
-                border-black
+                className={`border-2
+                border-[#1f78aa]
                 text-sm
                 px-3
                 py-1 
-                rounded-full
+                rounded-xl
                 transition-all
                 duration-100 
                 mt-4 
                 w-30 
                 self-center
                 font-semibold
-                hover:bg-[#F6D365]
-                hover:shadow-sm'
+                hover:bg-[#1f78aa]
+                hover:shadow-sm
+                ${showSeconds === "Hide Seconds" ? 
+                  'bg-black text-white hover:hover:bg-[#262626]' 
+                  :
+                  ''
+                }`}
                 onClick={() => {
                   if (showSeconds === "Hide Seconds") {
                     setShowSeconds("Show Seconds");
@@ -157,7 +162,7 @@ function FocusTimer() {
                         else {
                           return;
                         }
-                      }}><ChevronLeft size={32} strokeWidth={3} /></button>
+                      }}><ChevronLeft size={32} strokeWidth={3}  /></button>
                     <div>
                       <input type="text"
                         placeholder="focus time in minutes"
@@ -192,9 +197,9 @@ function FocusTimer() {
               }
               <button
                 className='border-2 
-                border-black 
-                rounded-full 
-                w-30
+                border-[#1f78aa] 
+                rounded-xl 
+                w-24
                 pb-1 
                 self-center 
                 text-2xl 

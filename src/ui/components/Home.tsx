@@ -9,13 +9,13 @@ function Home() {
         <span className="font-[CoromontGaramond] text-3xl">Good Afternoon!</span>
       </header>
       <section>
-        <div className="bg-[#f8e9b4] rounded-t-2xl relative h-6">
-          <span className="absolute left-3 z-10 opacity-100">Focus Session</span>
+        <div className="bg-[#2e96c9] rounded-t-2xl relative h-6">
+          <span className="absolute left-3 z-10 opacity-100 text-black">Focus Session</span>
         </div>
-        <div className="bg-[#F6D868] h-58">
+        <div className="bg-[#184d6c] h-58">
           <FocusTimer />
         </div>
-        <div className="bg-[#F6D868] rounded-b-2xl h-6">
+        <div className="bg-[#184d6c] rounded-b-2xl h-6">
         </div>
       {/* //today's progress */}
       </section>

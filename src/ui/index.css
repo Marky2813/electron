@@ -7,19 +7,17 @@
   font-family: 'Inter';
   font-weight: bold;
   color: rgba(0, 0, 0, 1);
-  background-color: #FAF4E4;
+  background-color: #0e0e11;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   font-family: 'Figtree', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #FAF4E4;
-  color: #000;
+  background-color: #030303;
+  color: #fefefe;
 }
 
-.btn-active {
-  @apply bg-black text-white;
-}
+
 
 @property --progress {
   syntax: '<percentage>';
@@ -36,7 +34,7 @@
   width: var(--size);
   aspect-ratio: 1 / 1;
 
-  background:conic-gradient(#000 var(--progress, 0), #C7C7C7 0%);
+  background:conic-gradient(#0cdcf8 var(--progress, 0), #12364c 0%);
   border-radius: 95px;
 
   display: flex;
@@ -50,7 +48,7 @@
 [role = "progressbar"]::after{
   box-sizing: border-box;
   content: attr(aria-valuetext) ; 
-  background: #F6D868; 
+  background: #184d6c; 
   border-radius: 95px;
   width: calc(100% - var(--bar-width)); 
   aspect-ratio: 1 / 1; 
