@@ -1,5 +1,6 @@
 export interface IElectronAPI {
  startSessionTimeTracking: () => void;
+ getSessionDetails: () => void
 }
 
 declare global {

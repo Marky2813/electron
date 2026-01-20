@@ -13,7 +13,6 @@ let saveCounter = 0;
 const store = new Store();
 //for the logic of which object we will return to the renderer process. ]
 //we have two sub problems here
-//first we will set today as the current date,and then get new date everytime the function runs. if the dates are same then we will not change the today session details. if they are different we will change it 
 //the next part is about how to reset it automatically at midnight.
 //also there is one nuance as to what will happen if the user pauses or ends the session. 
 let date = new Date();
@@ -25,6 +24,27 @@ if(currentdate === today) {
   todaySessionDetails = store.get('session-details')
   console.log(todaySessionDetails)
 }
+
+function scheduleMidnightReset() {
+  const now = new Date();
+  const night = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+    0, 0, 0 
+  );
+  const msToMidnight = night.getTime() - now.getTime();
+
+  setTimeout(() => {
+    todaySessionDetails;
+    store.set('session-details', todaySessionDetails);
+    store.set('current-date', today);
+  }, msToMidnight);
+}
+
+scheduleMidnightReset();
+
+
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
     width: 350,
@@ -45,7 +65,7 @@ mainWindow.setAlwaysOnTop(true);
     return powerMonitor.getSystemIdleTime(); 
   })
   ipcMain.handle('start-session-time-tracking',  startSessionTracking); 
-  ipcMain.handle('get-screen-time', () => {
+  ipcMain.handle('get-session-details', () => {
     clearInterval(intervalId);
     todaySessionDetails["contextSwitch"] = contextSwitch;  
     store.set('session-details', todaySessionDetails)
