@@ -3,7 +3,8 @@ const electron = require('electron');
 
 electron.contextBridge.exposeInMainWorld("electron", {
 //here we need to add the functions as key value pairs which we need  to use in the window
-getIdleTime: () => electron.ipcRenderer.invoke('get-idle-time')
+startSessionTimeTracking: () => electron.ipcRenderer.invoke('start-session-time-tracking'), 
+getSessionTime: () => electron.ipcRenderer.invoke('get-screen-time')
 })
 //appends whatever we are putting here in the mainWindow. 
 //ipcRenderer is a custom protocol which is provided by electron. this is used to send and recieve data from the frontend and backend. 

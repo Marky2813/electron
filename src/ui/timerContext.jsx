@@ -55,8 +55,18 @@ export function TimerProvider({ children }) {
         }
       }
       if(timerState === "Completed") {
-        setDurationMs(duration * 60_000)
-      }
+        setDurationMs(duration * 60_000);
+        const analysis = async () => {
+          try{
+            let data = await window.electron.getSessionTime (); 
+            return data; 
+          } catch (err) {
+            console.err("trouble fetching session time", err)
+          }
+        }
+
+        console.log(analysis()); 
+        }
       return () => {
           clearInterval(Intervalid)
         }; 

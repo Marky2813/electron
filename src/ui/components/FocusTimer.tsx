@@ -211,6 +211,7 @@ function FocusTimer() {
                 onClick={() => {
                   setTimerState("Running")
                   setStartTime(Date.now())
+                  window.electron.startSessionTimeTracking(); 
                 }}>Start</button>
 
             </div>
