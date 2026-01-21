@@ -46,14 +46,14 @@ function FocusTimer() {
             </div>
             {timerState === "Paused" && <button 
             className='mr-3 p-1
-            hover:bg-gray-100 rounded-full transition-colors'
+            hover:bg-[#1f78aa] rounded-full transition-colors'
             onClick={() => {
               setTimerState("Completed")
               setStateButton("Pause")
               setProgressPercentage(0)
-            }}><RotateCcw color='#000'/></button>}
+            }}><RotateCcw color='#fefefe'/></button>}
             <button 
-            className='hover:bg-gray-100 rounded-full transition-colors p-1'
+            className='hover:bg-[#1f78aa] rounded-full transition-colors p-1'
             onClick={() => {
               if (timerState === "Running" || timerState === "Resumed") {
                 setStateButton("Resume");
@@ -65,7 +65,7 @@ function FocusTimer() {
                 setStartTime(Date.now())
                 setTimerState("Resumed")
               }
-            }}>{stateButton === "Pause" ? <Pause fill='#000'color='#000' strokeWidth={1} size={26}/> : <Play fill='#000' color='#000' strokeWidth={1}/ >}</button>
+            }}>{stateButton === "Pause" ? <Pause fill='#fefefe'color='#fefefe' strokeWidth={1} size={26}/> : <Play fill='#fefefe' color='#fefefe' strokeWidth={1}/ >}</button>
           </section>
           :
           <section className='h-full'>
@@ -73,12 +73,12 @@ function FocusTimer() {
               {/* height full tells the div to take the entire height of it's parent element. while the height auto will start from zero filling only the height required to fit all the element.s*/}
               <button
                 id="seconds-btn"
-                className={`border-2
-                border-[#1f78aa]
+                className={`
+                bg-[#373737]
                 text-sm
                 px-3
                 py-1 
-                rounded-xl
+                rounded-lg
                 transition-all
                 duration-100 
                 mt-4 
@@ -88,7 +88,7 @@ function FocusTimer() {
                 hover:bg-[#1f78aa]
                 hover:shadow-sm
                 ${showSeconds === "Hide Seconds" ? 
-                  'bg-black text-white hover:hover:bg-[#262626]' 
+                  'text-white hover:hover:bg-[#1f78aa]' 
                   :
                   ''
                 }`}
@@ -197,17 +197,16 @@ function FocusTimer() {
                     -mt-2 text-m'>minutes</div></div>
               }
               <button
-                className='border-2 
-                border-[#1f78aa] 
-                rounded-xl 
+                className='
+                rounded-lg 
                 w-24
                 pb-1 
                 self-center 
                 text-2xl 
                 text-white 
-                bg-black 
+                bg-[#373737]
                 font-medium
-                hover:bg-[#262626]
+                hover:bg-[#1f78aa]
                 hover:shadow-sm'
                 onClick={() => {
                   setTimerState("Running")

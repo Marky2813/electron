@@ -48,7 +48,7 @@
 [role = "progressbar"]::after{
   box-sizing: border-box;
   content: attr(aria-valuetext) ; 
-  background: #184d6c; 
+  background: #141414; 
   border-radius: 95px;
   width: calc(100% - var(--bar-width)); 
   aspect-ratio: 1 / 1; 

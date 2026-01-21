@@ -13,15 +13,15 @@ let saveCounter = 0;
 const store = new Store();
 let date = new Date();
 let today = date.toLocaleDateString();
-let currentdate = store.get('current-date');
+let lastUsedDate = store.get('last-used-date');
 
-console.log(today, currentdate)
+console.log(today, lastUsedDate)
 
-if(currentdate === today) {
-  console.log(store.get('session-details'))
+if(lastUsedDate === today) {
   todaySessionDetails = store.get('session-details'); 
   contextSwitch = store.get('context-switches'); 
-  console.log(todaySessionDetails)
+} else {
+  store.set('last-used-date', today)
 }
 
 function scheduleMidnightReset() {
@@ -35,10 +35,16 @@ function scheduleMidnightReset() {
   const msToMidnight = night.getTime() - now.getTime();
 
   setTimeout(() => {
-    todaySessionDetails;
+    clearInterval(intervalId);
+    todaySessionDetails = {};
+    contextSwitch = {};
+    previousWindow = null; 
+    const newDay = new Date().toLocaleDateString();
     store.set('session-details', todaySessionDetails);
-    store.set('current-date', today);
-    store.set('context-switches', contextSwitch)
+    store.set('context-switches', contextSwitch);
+    store.set('last-used-date', newDay)
+    startSessionTracking(); 
+    scheduleMidnightReset(); 
   }, msToMidnight);
 }
 
@@ -47,9 +53,9 @@ scheduleMidnightReset();
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
-    width: 350,
-    height: 600,
-  resizable: false,  
+    minWidth: 350,
+    maxWidth: 350,
+    height: 600,  
   webPreferences: {
   preload: getPreloadPath(), 
 }
@@ -70,6 +76,7 @@ mainWindow.setAlwaysOnTop(true);
     todaySessionDetails["contextSwitch"] = contextSwitch;  
     store.set('session-details', todaySessionDetails); 
     store.set('context-switches' , contextSwitch)
+    store.set('last-used-date', today);
     return todaySessionDetails;
   })
   })
@@ -111,4 +118,3 @@ function startSessionTracking() {
       }
     }, 5000)
 }
-        store.set('current-date', today);
