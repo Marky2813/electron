@@ -35,7 +35,19 @@ export function TimerProvider({ children }) {
       if(timerState === "Paused") {
           let elapsedTime = Date.now() - startTime; 
           setRemainingTime(durationMs - elapsedTime);
-          setDurationMs(durationMs - elapsedTime); 
+          setDurationMs(durationMs - elapsedTime);
+                  const analysis = async () => {
+          try{
+            let data = await window.electron.getSessionDetails(); 
+            return data; 
+          } catch (err) {
+            console.error("trouble fetching session time", err)
+          }
+        }
+
+        analysis()
+        .then(val => console.log(val))
+        .catch(err => console.log(err));  
         }
 
         if(timerState === "Resumed") { 

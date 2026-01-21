@@ -8,20 +8,19 @@ import Store from 'electron-store'
 let intervalId: any;  
 let todaySessionDetails: any = {}
 let previousWindow: any = null; 
-let contextSwitch: any = 0; //to account for the number of context switches
+let contextSwitch: any = {}; //to account for the number of context switches
 let saveCounter = 0;  
 const store = new Store();
-//for the logic of which object we will return to the renderer process. ]
-//we have two sub problems here
-//the next part is about how to reset it automatically at midnight.
-//also there is one nuance as to what will happen if the user pauses or ends the session. 
 let date = new Date();
 let today = date.toLocaleDateString();
 let currentdate = store.get('current-date');
+
 console.log(today, currentdate)
+
 if(currentdate === today) {
   console.log(store.get('session-details'))
-  todaySessionDetails = store.get('session-details')
+  todaySessionDetails = store.get('session-details'); 
+  contextSwitch = store.get('context-switches'); 
   console.log(todaySessionDetails)
 }
 
@@ -39,6 +38,7 @@ function scheduleMidnightReset() {
     todaySessionDetails;
     store.set('session-details', todaySessionDetails);
     store.set('current-date', today);
+    store.set('context-switches', contextSwitch)
   }, msToMidnight);
 }
 
@@ -68,16 +68,15 @@ mainWindow.setAlwaysOnTop(true);
   ipcMain.handle('get-session-details', () => {
     clearInterval(intervalId);
     todaySessionDetails["contextSwitch"] = contextSwitch;  
-    store.set('session-details', todaySessionDetails)
+    store.set('session-details', todaySessionDetails); 
+    store.set('context-switches' , contextSwitch)
     return todaySessionDetails;
   })
   })
 
 
-  //hmr only works for react files. if you make any changes to the electron code then it needs to be restarted.
-  // //the current problems which are left to be solved are. 
-// - how do we calculate the data of the entire day 
-// - how do you store it in an object such that a new object is created each day. once this is resolved, we can move on to how to display the data. 
+//hmr only works for react files. if you make any changes to the electron code then it needs to be restarted.
+//the current problems which are left to be solved are. 
 // - in terms of ui/Ux, tinker how the data needs to be displayed. is it going to be day wise, or it is going to be focus session wise, or is it going to be both. 
 // - how do we show the app names with the icons.  
 function startSessionTracking() { 
@@ -86,23 +85,25 @@ function startSessionTracking() {
         saveCounter++; 
         const presentWindow = await activeWindow(); 
         if(!presentWindow) return; 
+        console.log(presentWindow)
+        const cleanTitle: any = presentWindow.owner.name;
         if(!previousWindow) //this is the first time the interval is running, incrementing the screentime by 2 to account for the loss of the time the interval was absent.  
         {
-          const cleanTitle: any = presentWindow.title.split(' - ').pop(); 
           todaySessionDetails[cleanTitle] = ((todaySessionDetails[cleanTitle]) || 0) + 2;
           previousWindow = cleanTitle; 
           return; 
         }
-        const cleanTitle: any = presentWindow.title.split(' - ').pop(); 
         todaySessionDetails[cleanTitle] = ((todaySessionDetails[cleanTitle]) || 0) + 1; 
         if (previousWindow === cleanTitle) {
           return; 
         } else {
-          contextSwitch++; 
+          const key = `From ${previousWindow} to ${cleanTitle}`
+          contextSwitch[key] = (contextSwitch[key] || 0) + 1; 
           previousWindow = cleanTitle; 
         }
         if (saveCounter >= 12) {
           store.set('session-details', todaySessionDetails);
+          store.set('context-switches', contextSwitch); 
           saveCounter = 0; 
         }
       } catch (error) { 

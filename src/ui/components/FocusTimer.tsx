@@ -60,6 +60,7 @@ function FocusTimer() {
                 setTimerState("Paused")
               }
               else {
+                window.electron.startSessionTimeTracking(); 
                 setStateButton("Pause");
                 setStartTime(Date.now())
                 setTimerState("Resumed")
