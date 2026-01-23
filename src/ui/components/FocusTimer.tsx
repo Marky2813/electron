@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTimer } from '../timerContext';
 import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-react';
 import Progress from './Progress';
+import LiquidGlass from 'liquid-glass-react'; 
 
 
 function FocusTimer() {
@@ -41,19 +42,19 @@ function FocusTimer() {
       {
         (timerState === "Running" || timerState === "Paused" || timerState === "Resumed") ?
           <section>
-            <div className='justify-items-center items:center pt-4 pb-2'>
+            <div className='justify-items-center items:center pt-6 pb-6'>
               <Progress time={time} progressPercentage={progressPercentage} setProgressPercentage={setProgressPercentage}/>
             </div>
             {timerState === "Paused" && <button 
             className='mr-3 p-1
-            hover:bg-[#1f78aa] rounded-full transition-colors'
+            hover:bg-[#f8f8f8] rounded-full transition-colors'
             onClick={() => {
               setTimerState("Completed")
               setStateButton("Pause")
               setProgressPercentage(0)
-            }}><RotateCcw color='#fefefe'/></button>}
+            }}><RotateCcw color='#1A2421' size={28}/></button>}
             <button 
-            className='hover:bg-[#1f78aa] rounded-full transition-colors p-1'
+            className='hover:bg-[#f8f8f8] rounded-full transition-colors p-1'
             onClick={() => {
               if (timerState === "Running" || timerState === "Resumed") {
                 setStateButton("Resume");
@@ -65,30 +66,33 @@ function FocusTimer() {
                 setStartTime(Date.now())
                 setTimerState("Resumed")
               }
-            }}>{stateButton === "Pause" ? <Pause fill='#fefefe'color='#fefefe' strokeWidth={1} size={26}/> : <Play fill='#fefefe' color='#fefefe' strokeWidth={1}/ >}</button>
+            }}>{stateButton === "Pause" ? <Pause fill='#1A2421'color='#1A2421' strokeWidth={1} size={28}/> : <Play fill='#1A2421' color='#1A2421' strokeWidth={1} size={28}/ >}</button>
           </section>
           :
           <section className='h-full'>
             <div className='flex flex-col justify-between h-full'>
               {/* height full tells the div to take the entire height of it's parent element. while the height auto will start from zero filling only the height required to fit all the element.s*/}
+              
               <button
                 id="seconds-btn"
                 className={`
-                bg-[#373737]
-                text-sm
+                border-2
+                border-[#373737]
+                text-xs
                 px-3
                 py-1 
                 rounded-lg
+                text-[#373737]
                 transition-all
                 duration-100 
-                mt-4 
-                w-30 
+                mt-6 
+                w-27 
                 self-center
                 font-semibold
-                hover:bg-[#1f78aa]
+                hover:bg-white
                 hover:shadow-sm
                 ${showSeconds === "Hide Seconds" ? 
-                  'text-white hover:hover:bg-[#1f78aa]' 
+                  'text-[#373737] hover:hover:bg-white' 
                   :
                   ''
                 }`}
@@ -101,8 +105,8 @@ function FocusTimer() {
                   }
                 }}>{showSeconds}</button>
               {(showSeconds === "Hide Seconds") ?
-                <div>
-                  <div className='flex justify-center items-center gap-5'>
+                <div className='-mt-3'>
+                  <div className='flex justify-center items-center gap-3'>
                     <button
                       className='
                       pt-3
@@ -121,7 +125,7 @@ function FocusTimer() {
                       <input type="text"
                         placeholder="focus time in minutes"
                         className="bg-transparent text-center border-none outline-none ring-0 focus:ring-0 focus:outline-none focus:placeholder-transparent min-w-[1ch] [field-sizing:content]
-                    text-6xl
+                    text-7xl
                     font-bold
                     "
                         value={duration}
@@ -130,7 +134,7 @@ function FocusTimer() {
                           if (Number(value) <= 480) {
                             setDuration(Number(value));
                           }
-                        }}></input><span className='text-6xl
+                        }}></input><span className='text-7xl
                     font-bold '>:00</span>
                     </div>
                     <button
@@ -148,9 +152,9 @@ function FocusTimer() {
                         }
                       }}><ChevronRight size={32} strokeWidth={3} /></button></div>
                   <div className='font-semibold
-                    -mt-2 text-m'>minutes</div></div>
+                    -mt-3 text-lg'>minutes</div></div>
                 :
-                <div>
+                <div className='-mt-3'>
                   <div className='flex justify-center items-center gap-5'>
                     <button
                       className='pt-3
@@ -168,7 +172,7 @@ function FocusTimer() {
                       <input type="text"
                         placeholder="focus time in minutes"
                         className="bg-transparent text-center border-none outline-none ring-0 focus:ring-0 focus:outline-none focus:placeholder-transparent min-w-[1ch] [field-sizing:content]
-                    text-6xl
+                    text-8xl
                     font-bold
                     "
                         value={duration}
@@ -194,7 +198,7 @@ function FocusTimer() {
                         }
                       }}><ChevronRight size={32} strokeWidth={3} /></button></div>
                   <div className='font-semibold
-                    -mt-2 text-m'>minutes</div></div>
+                    -mt-4 text-lg'>minutes</div></div>
               }
               <button
                 className='
@@ -206,7 +210,7 @@ function FocusTimer() {
                 text-white 
                 bg-[#373737]
                 font-medium
-                hover:bg-[#1f78aa]
+                hover:bg-[#151515]
                 hover:shadow-sm'
                 onClick={() => {
                   setTimerState("Running")

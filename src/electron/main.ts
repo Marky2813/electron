@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'; 
+import { app, BrowserWindow, nativeTheme } from 'electron'; 
 import path from 'path'; 
 import { isDev } from './util.js';
 import { getPreloadPath } from './pathResolver.js';
@@ -52,9 +52,10 @@ scheduleMidnightReset();
 
 
 app.on('ready', () => {
+  const isMac = process.platform === "darwin";
+  const isWin = process.platform === "win32";
   const mainWindow = new BrowserWindow({
     minWidth: 350,
-    maxWidth: 350,
     height: 600,  
   webPreferences: {
   preload: getPreloadPath(), 
