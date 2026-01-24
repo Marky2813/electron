@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useTimer } from '../timerContext';
 import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-react';
 import Progress from './Progress';
-import LiquidGlass from 'liquid-glass-react'; 
 
 
 function FocusTimer() {

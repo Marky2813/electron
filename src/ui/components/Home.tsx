@@ -6,7 +6,7 @@ function Home() {
       {/* <h5>this is the home page of our app. greeting + weather. then 2 components for focus session and progress. </h5> */}
       <main className="w-3xl">
  
-        <section className=" rounded-lg text-[#1A2421] bg-gradient-to-b from-white/60 to-white/30 border-[1px] border-solid border-white border-opacity-30 shadow-black/70 shadow-sm">
+        <section className="rounded-lg text-[#1A2421] bg-gradient-to-b from-white/60 to-white/30 border-[1px] border-solid border-white border-opacity-30 shadow-black/70 shadow-sm">
           <div className="rounded-t-md relative h-6 ">
             <span className="absolute left-2 z-10 opacity-100">Focus Session</span>
           </div>
@@ -17,31 +17,26 @@ function Home() {
           </div>
           {/* //today's progress */}
         </section>
-        {/* <section className="mt-4">
+        <section className="mt-4 h-28 rounded-lg text-[#1A2421] bg-gradient-to-b from-white/60 to-white/30 border-[1px] border-solid border-white border-opacity-30 shadow-black/70 shadow-sm">
 
-          <div className="bg-[#1b1a1a] h-28 rounded-md flex items-center justify-center">
-            
-            <div className="flex items-center justify-center gap-3">
-              <div className="h-23 w-33 bg-[#141414] rounded-lg ">
-                <div className="bg-[#2e96c9] rounded-t-lg relative h-6">
-                  <span className="absolute left-1 top-0.5 text-sm opacity-100 text-black">Deep Work</span>
-                </div>
-                <div className="text-xl h-full relative">
-                 <span className="absolute right-2 bottom-7">1hr 45mins</span>
-                </div>
+          <div className="relative h-8">
+            <span className="absolute left-2">Analytics</span>
+          </div>
+          <div className="flex items-center justify-center gap-2 h-17">
+            <div className="bg-[#f8f8f8] grow ml-2 h-full rounded-lg">
+              <div className="flex flex-col items-start ml-2 mt-2 justify-center">
+                <div className="text-xs">Deep Work</div>
+                <div className="text-3xl">1h 45m</div>
               </div>
-              <div className="h-23 w-33 bg-[#141414] rounded-lg ">
-                <div className="bg-[#2e96c9] rounded-t-lg relative h-6">
-                  <span className="absolute left-1 top-0.5 text-sm opacity-100 text-black">Context Switches</span>
-                </div>
-                <div className="text-xl h-full relative">
-                 <span className="absolute left-1 top-0 text-2xl">12</span>
-                </div>
+            </div>
+            <div className="bg-[#f8f8f8] grow mr-2 h-full rounded-lg">
+              <div className="flex flex-col items-start ml-2 mt-2 justify-center">
+                <div className="text-xs">Context Switches</div>
+                <div className="text-3xl">12</div>
               </div>
             </div>
           </div>
-          {/* //today's progress 
-        </section> */}
+        </section> 
 
       </main>
     </>

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, nativeTheme } from 'electron'; 
+import { app, BrowserWindow } from 'electron'; 
 import path from 'path'; 
 import { isDev } from './util.js';
 import { getPreloadPath } from './pathResolver.js';
@@ -14,6 +14,7 @@ const store = new Store();
 let date = new Date();
 let today = date.toLocaleDateString();
 let lastUsedDate = store.get('last-used-date');
+let state: any = null; 
 
 console.log(today, lastUsedDate)
 
@@ -36,6 +37,7 @@ function scheduleMidnightReset() {
 
   setTimeout(() => {
     clearInterval(intervalId);
+    setTimeout(() => {
     todaySessionDetails = {};
     contextSwitch = {};
     previousWindow = null; 
@@ -43,8 +45,12 @@ function scheduleMidnightReset() {
     store.set('session-details', todaySessionDetails);
     store.set('context-switches', contextSwitch);
     store.set('last-used-date', newDay)
+    if (state === 'running') 
+    {
     startSessionTracking(); 
+    }
     scheduleMidnightReset(); 
+    }, 10_000)
   }, msToMidnight);
 }
 
@@ -52,8 +58,6 @@ scheduleMidnightReset();
 
 
 app.on('ready', () => {
-  const isMac = process.platform === "darwin";
-  const isWin = process.platform === "win32";
   const mainWindow = new BrowserWindow({
     minWidth: 350,
     height: 600,  
@@ -73,6 +77,7 @@ mainWindow.setAlwaysOnTop(true);
   })
   ipcMain.handle('start-session-time-tracking',  startSessionTracking); 
   ipcMain.handle('get-session-details', () => {
+    state = null; 
     clearInterval(intervalId);
     todaySessionDetails["contextSwitch"] = contextSwitch;  
     store.set('session-details', todaySessionDetails); 
@@ -88,6 +93,7 @@ mainWindow.setAlwaysOnTop(true);
 // - in terms of ui/Ux, tinker how the data needs to be displayed. is it going to be day wise, or it is going to be focus session wise, or is it going to be both. 
 // - how do we show the app names with the icons.  
 function startSessionTracking() { 
+    state = "running"; 
     intervalId = setInterval(async () => {
       try {
         saveCounter++; 
