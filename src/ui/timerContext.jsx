@@ -6,16 +6,42 @@ export function TimerProvider({ children }) {
   const [startTime, setStartTime] = useState(0);
      const [timerState, setTimerState] = useState("Intialized");
      const [duration, setDuration] = useState(15);
-     const[remainingTime, setRemainingTime] = useState(0);
+     const [remainingTime, setRemainingTime] = useState(0);
      const [durationMs, setDurationMs] = useState(15 * 60000);
      const [progressPercentage, setProgressPercentage] = useState(0);
+     const [analytics, setAnalytics] = useState();
+     const [deepWork, setDeepWork] = useState(0);
+     const [contextSwitches, setContextSwitches] = useState(0); 
      
+
+        
+
+        
+
      useEffect(() => {
       setDurationMs(duration*60_000);
      }, [duration])
 
      useEffect(() => {
       let Intervalid;
+      
+      if(timerState === 'Intialized') {
+        const analysis = async () => {
+          try{
+            let data = await window.electron.getSessionDetails(); 
+            return data; 
+          } catch (err) {
+            console.error("trouble fetching session time", err)
+          }
+        }
+
+        analysis()
+        .then(val => {
+          setContextSwitches(val.contextSwitch);
+          setDeepWork(val.todaySessionDetails);
+        })
+        .catch(err => console.log(err));  
+        }
       if(timerState === "Running") {
         setRemainingTime((duration*60*1000) - ((Date.now() - startTime)));
         Intervalid = setInterval(() => {
@@ -36,7 +62,8 @@ export function TimerProvider({ children }) {
           let elapsedTime = Date.now() - startTime; 
           setRemainingTime(durationMs - elapsedTime);
           setDurationMs(durationMs - elapsedTime);
-                  const analysis = async () => {
+          
+               const analysis = async () => {
           try{
             let data = await window.electron.getSessionDetails(); 
             return data; 
@@ -46,7 +73,10 @@ export function TimerProvider({ children }) {
         }
 
         analysis()
-        .then(val => console.log(val))
+        .then(val => {
+          setContextSwitches(val.contextSwitch);
+          setDeepWork(val.todaySessionDetails);
+        })
         .catch(err => console.log(err));  
         }
 
@@ -78,7 +108,10 @@ export function TimerProvider({ children }) {
         }
 
         analysis()
-        .then(val => console.log(val))
+        .then(val => {
+          setContextSwitches(val.contextSwitch);
+          setDeepWork(val.todaySessionDetails);
+        })
         .catch(err => console.log(err));  
         }
         // console.log(analysis()); 
@@ -97,7 +130,9 @@ export function TimerProvider({ children }) {
       remainingTime, 
       setRemainingTime, 
       progressPercentage, 
-      setProgressPercentage
+      setProgressPercentage,
+      deepWork,
+      contextSwitches
      }; 
 
      return (

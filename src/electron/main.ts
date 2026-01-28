@@ -79,11 +79,14 @@ mainWindow.setAlwaysOnTop(true);
   ipcMain.handle('get-session-details', () => {
     state = null; 
     clearInterval(intervalId);
-    todaySessionDetails["contextSwitch"] = contextSwitch;  
+    // todaySessionDetails["contextSwitch"] = contextSwitch;  
     store.set('session-details', todaySessionDetails); 
     store.set('context-switches' , contextSwitch)
     store.set('last-used-date', today);
-    return todaySessionDetails;
+    return {
+    todaySessionDetails, 
+    contextSwitch
+    }
   })
   })
 

@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@property --progress {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%; 
+}
+
 
 :root {
   margin: 0; 
@@ -40,14 +46,16 @@
   width: var(--size);
   aspect-ratio: 1 / 1;
 
-  background:conic-gradient(#a865b5 var(--progress, 0%), #a18cd1 0%);
+  background:conic-gradient(#373737 var(--progress, 0), #ffffff
+   0%);
   border-radius: 120px;
 
   display: flex;
   justify-content: center;
   align-items: center;
- 
-  transition: --progress 0.5s ease
+  
+  transition: --progress 0.5s ease;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
