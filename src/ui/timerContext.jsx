@@ -14,7 +14,7 @@ export function TimerProvider({ children }) {
      const [contextSwitches, setContextSwitches] = useState(0); 
      
 
-        
+    //deep work contains our details about the session and context switches contains the number of switches.        
 
         
 
@@ -37,7 +37,9 @@ export function TimerProvider({ children }) {
 
         analysis()
         .then(val => {
+          console.log(val.contextSwitch)
           setContextSwitches(val.contextSwitch);
+          console.log(val.todaySessionDetails)
           setDeepWork(val.todaySessionDetails);
         })
         .catch(err => console.log(err));  
