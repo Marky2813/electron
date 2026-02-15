@@ -1,0 +1,32 @@
+name: Build Visible for Mac
+on:
+  push:
+    branches:
+      - main  # Runs every time you push to the main branch
+
+jobs:
+  release:
+    runs-on: macos-latest  # This is the "magic" that gives you a Mac environment
+
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Matches the version you're likely using for Electron
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Mac App
+        run: npm run dist:mac
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Visible-Mac-Build
+          path: dist/*.dmg  # This grabs the generated installer
