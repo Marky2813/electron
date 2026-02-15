@@ -2,19 +2,20 @@ import { useRef, useEffect } from "react"
 
 function Progress({time, progressPercentage, setProgressPercentage}) {
   const inputRef = useRef(null);
+  
   useEffect(() => {
-   inputRef.current.setAttribute("role", "progressbar"); 
+    inputRef.current.setAttribute("role", "progressbar"); 
   }, [])
-  useEffect(() => {
-    inputRef.current.setAttribute("aria-valuetext", time); 
-    inputRef.current.style.setProperty('--progress', progressPercentage + "%")
 
-  }, [time, progressPercentage])
   return (
-   <>
-    <div className="progress-bar" ref={inputRef}>
+    <div 
+      className="progress-bar" 
+      ref={inputRef}
+      role="progressbar"
+      aria-valuetext={time}
+      style={{'--progress': `${progressPercentage}%`}}
+    >
     </div>
-   </>
   ); 
 }
 

@@ -1,5 +1,6 @@
 {
-  "name": "learn_electron",
+  "name": "visible-app",
+  "productName": "Visible",
   "private": true,
   "author": "Sarthak",
   "version": "0.0.0",
@@ -16,19 +17,22 @@
     "transpile:electron": "tsc --project src/electron/tsconfig.json",
     "dist:mac": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
     "dist:win": "npm run transpile:electron && npm run build && electron-builder --win --x64",
-    "dist:linux": "npm run transpile:electron && npm run build && electron-builder --linux --x64"
+    "dist:linux": "npm run transpile:electron && npm run build && electron-builder --linux --x64",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
-    "active-win": "^8.2.1",
+    "active-win": "^8.1.0",
     "electron-store": "^11.0.2",
     "liquid-glass-react": "^1.1.1",
     "lucide-react": "^0.562.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.13.0"
+    "react-router-dom": "^7.13.0",
+    "tailwind-scrollbar": "^4.0.2"
   },
   "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
     "@eslint/js": "^9.25.0",
     "@tailwindcss/cli": "^4.1.18",
     "@types/react": "^19.1.2",

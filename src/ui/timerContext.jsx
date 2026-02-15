@@ -45,12 +45,14 @@ export function TimerProvider({ children }) {
         .catch(err => console.log(err));  
         }
       if(timerState === "Running") {
+        // setProgressPercentage(0);
         setRemainingTime((duration*60*1000) - ((Date.now() - startTime)));
         Intervalid = setInterval(() => {
           let time = (duration*60*1000) - ((Date.now() - startTime));
           setRemainingTime(time);
           if(Math.floor(time/60_000) < 0) 
           {
+            window.electron.sendNotification();
             setTimerState("Completed")
             clearInterval(Intervalid);
             return;
