@@ -3,7 +3,7 @@ name: Build and Release Visible
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*' # Triggers on tags like v1.0.0, v0.1.0, etc.
 
 jobs:
   release:
@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        # This runs two separate builds in parallel
+        # Running macOS and Linux builds in parallel
         os: [macos-latest, ubuntu-latest]
 
     steps:
@@ -27,11 +27,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build React App
-        run: npm run build
-
-      - name: Build and Publish Electron App
-        # This dynamically chooses --mac or --linux based on the runner
-        run: npx electron-builder --${{ matrix.os == 'macos-latest' && 'mac' || 'linux' }} --publish always
+      - name: Build and Publish
+        run: |
+          if [ "${{ matrix.os }}" = "macos-latest" ]; then
+            # Runs: transpile -> build -> electron-builder --mac
+            npm run dist:mac -- --publish always
+          else
+            # Runs: transpile -> build -> electron-builder --linux
+            npm run dist:linux -- --publish always
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
