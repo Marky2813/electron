@@ -1,47 +1,37 @@
-name: Build Visible (Multi-Platform)
+name: Build and Release Visible
+
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   release:
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest] # Runs two separate jobs in parallel
-
     runs-on: ${{ matrix.os }}
 
+    strategy:
+      matrix:
+        # This runs two separate builds in parallel
+        os: [macos-latest, ubuntu-latest]
+
     steps:
-      - name: Check out git repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm' # Speeds up future builds by caching dependencies
+          node-version: '20'
+          cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build Application
-        # This dynamically runs the right script based on the OS
-        run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            npm run dist:win
-          else
-            npm run dist:mac
-          fi
-        shell: bash 
+      - name: Build React App
+        run: npm run build
+
+      - name: Build and Publish Electron App
+        # This dynamically chooses --mac or --linux based on the runner
+        run: npx electron-builder --${{ matrix.os == 'macos-latest' && 'mac' || 'linux' }} --publish always
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Visible-${{ matrix.os }}-Build
-          path: |
-            dist/*.dmg
-            dist/*.exe
-            dist/*.msi
