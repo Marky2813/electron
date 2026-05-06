@@ -1,54 +1,74 @@
-# React + TypeScript + Vite
+# Visible
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A desktop focus timer that doesn’t just track sessions — it shows where your time actually went.
 
-Currently, two official plugins are available:
+Most focus apps stop at “25 minutes completed.”
+Visible goes deeper.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It tracks:
 
-## Expanding the ESLint configuration
+* Focus sessions
+* Context switches
+* Time distribution across apps
+* Productivity patterns over time
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Built to solve a personal problem:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+> “Why does a 25-minute session still feel unproductive sometimes?”
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Instead of blindly counting sessions, Visible helps you understand how your attention moves throughout the day.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Tech Stack
+
+* **Electron.js** — Desktop app framework
+* **React** — UI development
+* **Javascript** — Application logic
+* **Tailwind CSS** — Styling
+
+---
+
+## Why I Built This
+
+I’ve used a lot of focus apps, but most of them only track time.
+
+They don’t answer:
+
+* Where did the time actually go?
+* How often did I switch context?
+* Which apps distracted me the most?
+* Was I genuinely focused?
+
+Visible was built from scratch to explore those questions while also helping me sharpen my engineering skills.
+
+I intentionally avoided relying heavily on AI coding agents because I wanted to stay close to the logic, debugging process, and architectural decisions behind the product.
+
+---
+
+## [Installation](https://www.notion.so/Visible-Download-Installation-Guide-309967cbecbb8092ad26da661ca9974a)
+
+---
+
+## Contributing
+
+Contributions, ideas, and feedback are welcome.
+
+If you find a bug or have suggestions:
+
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Open a pull request
+
+---
+
+## Feedback
+
+I’d genuinely appreciate feedback, feature suggestions, or criticism.
+
+The goal is not just to build another timer app
+it’s to build a tool that helps people understand their attention better.
+
+---
+
